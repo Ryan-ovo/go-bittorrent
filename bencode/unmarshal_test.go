@@ -33,6 +33,11 @@ func TestUnmarshalList(t *testing.T) {
 	l := &[]int{}
 	Unmarshal(bytes.NewBufferString(str), l)
 	assert.Equal(t, []int{1, 2, 3}, *l)
+
+	buf := bytes.NewBuffer([]byte{})
+	wLen := Marshal(buf, l)
+	assert.Equal(t, len(str), wLen)
+	assert.Equal(t, str, buf.String())
 }
 
 func TestUnmarshalMultiList(t *testing.T) {
@@ -40,6 +45,11 @@ func TestUnmarshalMultiList(t *testing.T) {
 	l := &[][]int{}
 	Unmarshal(bytes.NewBufferString(str), l)
 	assert.Equal(t, [][]int{{1, 2, 3}, {4, 5, 6}}, *l)
+
+	buf := bytes.NewBuffer([]byte{})
+	wLen := Marshal(buf, l)
+	assert.Equal(t, len(str), wLen)
+	assert.Equal(t, str, buf.String())
 }
 
 func TestUnmarshalUser(t *testing.T) {
@@ -49,6 +59,11 @@ func TestUnmarshalUser(t *testing.T) {
 	t.Logf("%+v", u)
 	assert.Equal(t, "Ryan", u.Name)
 	assert.Equal(t, 20, u.Age)
+
+	buf := bytes.NewBuffer([]byte{})
+	wLen := Marshal(buf, u)
+	assert.Equal(t, len(str), wLen)
+	assert.Equal(t, str, buf.String())
 }
 
 func TestUnmarshalRole(t *testing.T) {
@@ -58,6 +73,11 @@ func TestUnmarshalRole(t *testing.T) {
 	assert.Equal(t, 1, r.Id)
 	assert.Equal(t, "Ryan", r.Name)
 	assert.Equal(t, 20, r.Age)
+
+	buf := bytes.NewBuffer([]byte{})
+	wLen := Marshal(buf, r)
+	assert.Equal(t, len(str), wLen)
+	assert.Equal(t, str, buf.String())
 }
 
 func TestUnmarshalScore(t *testing.T) {
@@ -67,6 +87,11 @@ func TestUnmarshalScore(t *testing.T) {
 	assert.Equal(t, "Ryan", s.Name)
 	assert.Equal(t, 20, s.Age)
 	assert.Equal(t, []int{1, 2, 3}, s.Value)
+
+	buf := bytes.NewBuffer([]byte{})
+	wLen := Marshal(buf, s)
+	assert.Equal(t, len(str), wLen)
+	assert.Equal(t, str, buf.String())
 }
 
 func TestUnmarshalTeam(t *testing.T) {
@@ -75,4 +100,23 @@ func TestUnmarshalTeam(t *testing.T) {
 	Unmarshal(bytes.NewBufferString(str), team)
 	assert.Equal(t, "team01", team.Name)
 	assert.Equal(t, 2, team.Size)
+
+	buf := bytes.NewBuffer([]byte{})
+	wLen := Marshal(buf, team)
+	assert.Equal(t, len(str), wLen)
+	assert.Equal(t, str, buf.String())
+}
+
+func TestMarshalBasic(t *testing.T) {
+	buf := new(bytes.Buffer)
+	str := "abc"
+	len := Marshal(buf, str)
+	assert.Equal(t, 5, len)
+	assert.Equal(t, "3:abc", buf.String())
+
+	buf.Reset()
+	val := 199
+	len = Marshal(buf, val)
+	assert.Equal(t, 5, len)
+	assert.Equal(t, "i199e", buf.String())
 }

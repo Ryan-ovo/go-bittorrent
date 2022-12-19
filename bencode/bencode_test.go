@@ -12,7 +12,7 @@ func TestString(t *testing.T) {
 	wLen := EncodeString(buf, str)
 	decodeStr, _ := DecodeString(buf)
 	assert.Equal(t, wLen, 29)
-	assert.Equal(t, decodeStr, str+" ")
+	assert.Equal(t, decodeStr, str)
 }
 
 func TestInt(t *testing.T) {
