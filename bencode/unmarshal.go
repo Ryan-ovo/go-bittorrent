@@ -95,6 +95,7 @@ func unmarshalList(v reflect.Value, list []*BObject) error {
 				return TypeError
 			}
 			// 创建指向子元素类型的指针
+			// 在反射中使用append操作比较麻烦，所以直接开辟一块空间然后让指针指向内存，后续直接在对应索引上set即可
 			ptr := reflect.New(e.Type().Elem()) // *[]int
 			// 创建子元素类型的数组
 			subArray := reflect.MakeSlice(e.Type().Elem(), len(l), len(l))

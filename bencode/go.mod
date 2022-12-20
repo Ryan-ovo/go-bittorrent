@@ -1,4 +1,4 @@
-module github.com/Ryan/go-bittorrent/bencode
+module github.com/Ryan-ovo/go-bittorrent/bencode
 
 go 1.18
 
