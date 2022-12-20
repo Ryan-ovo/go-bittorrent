@@ -152,7 +152,7 @@ func unmarshalDict(v reflect.Value, dict map[string]*BObject) error {
 		switch val.typ {
 		case STR:
 			if vf.Kind() != reflect.String {
-				continue
+				break
 			}
 			str, err := val.Str()
 			if err != nil {
@@ -161,7 +161,7 @@ func unmarshalDict(v reflect.Value, dict map[string]*BObject) error {
 			vf.SetString(str)
 		case INT:
 			if vf.Kind() != reflect.Int {
-				continue
+				break
 			}
 			a, err := val.Int()
 			if err != nil {
@@ -170,7 +170,7 @@ func unmarshalDict(v reflect.Value, dict map[string]*BObject) error {
 			vf.SetInt(int64(a))
 		case LIST:
 			if vf.Kind() != reflect.Slice {
-				continue
+				break
 			}
 			list, err := val.List()
 			if err != nil {
@@ -185,7 +185,7 @@ func unmarshalDict(v reflect.Value, dict map[string]*BObject) error {
 			vf.Set(ptr.Elem())
 		case DICT:
 			if vf.Kind() != reflect.Struct {
-				continue
+				break
 			}
 			d, err := val.Dict()
 			if err != nil {
