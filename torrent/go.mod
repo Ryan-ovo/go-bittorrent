@@ -3,7 +3,7 @@ module github.com/Ryan-ovo/go-bittorrent/torrent
 go 1.18
 
 require (
-	github.com/Ryan-ovo/go-bittorrent/bencode v0.0.0-20221220132525-cc57eef33a04
+	github.com/Ryan-ovo/go-bittorrent/bencode v0.0.0-20221220152422-90dbd36df35d
 	github.com/stretchr/testify v1.8.1
 )
 

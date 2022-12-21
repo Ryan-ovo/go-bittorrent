@@ -32,13 +32,13 @@ type TorrentFile struct {
 }
 
 func ParseFile(r io.Reader) (*TorrentFile, error) {
-	raw := new(rawFile)
+	raw := &rawFile{}
 	// 将流中的数据反序列化到rawFile结构中
 	if err := bencode.Unmarshal(r, raw); err != nil {
 		log.Printf("Parse file error, err = [%v]", err)
 		return nil, err
 	}
-	tf := new(TorrentFile)
+	tf := &TorrentFile{}
 	tf.Announce = raw.Announce
 	tf.FileName = raw.Info.Name
 	tf.FileLen = raw.Info.Length
@@ -59,5 +59,5 @@ func ParseFile(r io.Reader) (*TorrentFile, error) {
 		copy(hash[i][:], bs[i*SHALEN:(i+1)*SHALEN])
 	}
 	tf.PieceSHA = hash
-	return nil, nil
+	return tf, nil
 }
