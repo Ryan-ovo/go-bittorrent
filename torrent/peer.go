@@ -183,7 +183,7 @@ func CopyPieceData(index int, buf []byte, msg *PeerMsg) (int, error) {
 		return 0, fmt.Errorf("offset too big, offset %d >= bufLen %d", parseOffset, len(buf))
 	}
 	parseData := msg.Payload[8:]
-	if parseOffset+len(parseData) >= len(buf) {
+	if parseOffset+len(parseData) > len(buf) {
 		return 0, fmt.Errorf("data too big, offset %d, dataLen %d, bufLen %d", parseOffset, len(parseData), len(buf))
 	}
 	// 拷贝消息内容到对应位置
