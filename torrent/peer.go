@@ -96,6 +96,7 @@ func (c *PeerConn) ReadMsg() (*PeerMsg, error) {
 }
 
 // WriteMsg 写入格式：消息长度（id + payload） + id + payload
+// Peer约定消息格式：前4字节是消息长度，后面1字节是消息id，再往后是消息内容
 func (c *PeerConn) WriteMsg(msg *PeerMsg) (int, error) {
 	var buf []byte
 	if msg == nil {
@@ -150,4 +151,41 @@ func fillBitField(c *PeerConn) error {
 	log.Println("fill bitfield successfully, peer = ", c.peer.IP.String())
 	c.Field = msg.Payload
 	return nil
+}
+
+// GetIndex 获取消息中的信息：分片序号
+func GetIndex(msg *PeerMsg) (int, error) {
+	if msg.ID != MsgHave {
+		return 0, fmt.Errorf("expect msg id have, get %d", msg.ID)
+	}
+	if len(msg.Payload) != 4 {
+		return 0, fmt.Errorf("expect payload length 4, get %d", len(msg.Payload))
+	}
+	index := binary.BigEndian.Uint32(msg.Payload)
+	return int(index), nil
+}
+
+// CopyPieceData 把通信消息中对应分片的子分片内容拷贝到内存buf中
+func CopyPieceData(index int, buf []byte, msg *PeerMsg) (int, error) {
+	if msg.ID != MsgPiece {
+		return 0, fmt.Errorf("expect msg id piece, get %d", msg.ID)
+	}
+	if len(msg.Payload) < 8 {
+		return 0, fmt.Errorf("payload too short, expect 8, get %d", len(msg.Payload))
+	}
+	parseIndex := int(binary.BigEndian.Uint32(msg.Payload[0:4]))
+	if parseIndex != index {
+		return 0, fmt.Errorf("expect index %d, get %d", index, parseIndex)
+	}
+	parseOffset := int(binary.BigEndian.Uint32(msg.Payload[4:8]))
+	if parseOffset >= len(buf) {
+		return 0, fmt.Errorf("offset too big, offset %d >= bufLen %d", parseOffset, len(buf))
+	}
+	parseData := msg.Payload[8:]
+	if parseOffset+len(parseData) >= len(buf) {
+		return 0, fmt.Errorf("data too big, offset %d, dataLen %d, bufLen %d", parseOffset, len(parseData), len(buf))
+	}
+	// 拷贝消息内容到对应位置
+	copy(buf[parseOffset:], parseData)
+	return len(parseData), nil
 }
