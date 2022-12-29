@@ -1,6 +1,9 @@
 package torrent
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 const (
 	Reserved = 8
@@ -40,6 +43,9 @@ func ReadHandShake(r io.Reader) (*HandShakeMsg, error) {
 		return nil, err
 	}
 	preLen := int(lenBuf[0])
+	if preLen == 0 {
+		return nil, fmt.Errorf("preLen cannot be zero")
+	}
 	// 读消息体
 	msgBuf := make([]byte, preLen+HsMsgLen)
 	if _, err := io.ReadFull(r, msgBuf); err != nil {
