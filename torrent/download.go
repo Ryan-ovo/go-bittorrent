@@ -35,7 +35,7 @@ func (t *TorrentTask) getPieceBounds(index int) (int, int) {
 
 func (t *TorrentTask) peerRoutine(peer PeerInfo, taskQueue chan *pieceTask, resultQueue chan *pieceResult) {
 	// 建立peer的连接
-	conn, err := NewPeerConn(peer, t.InfoSHA, t.peerID)
+	conn, err := NewPeerConn(peer, t.InfoSHA, t.PeerID)
 	if err != nil {
 		log.Println("connect to peer error = ", err)
 		return
