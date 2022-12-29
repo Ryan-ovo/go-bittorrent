@@ -32,6 +32,7 @@ func main() {
 	}
 	// 5. 封装下载对象
 	task := &torrent.TorrentTask{
+		peerID:   peerID,
 		PeerList: peers,
 		InfoSHA:  tf.InfoSHA,
 		FileName: tf.FileName,

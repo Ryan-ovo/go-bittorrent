@@ -9,12 +9,15 @@ func (b Bitfield) HasPiece(index int) bool {
 	if idx < 0 || idx >= len(b) {
 		return false
 	}
-	return b[idx]>>(7-offset)&1 == 1
+	return b[idx]>>uint(7-offset)&1 == 1
 }
 
 func (b Bitfield) SetPiece(index int) {
 	idx, offset := index/8, index%8
-	b[idx] |= 1 << (7 - offset)
+	if idx < 0 || idx >= len(b) {
+		return
+	}
+	b[idx] |= 1 << uint(7-offset)
 }
 
 func (b Bitfield) String() string {
