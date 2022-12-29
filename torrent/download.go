@@ -15,7 +15,7 @@ const (
 
 // TorrentTask 下载任务的抽象
 type TorrentTask struct {
-	peerID   [IDLen]byte    // 客户端id
+	PeerID   [IDLen]byte    // 客户端id
 	PeerList []PeerInfo     // 获取到的peer列表
 	InfoSHA  [SHALEN]byte   // 文件哈希值
 	FileName string         // 文件名
