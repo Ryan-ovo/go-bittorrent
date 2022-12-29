@@ -1,8 +1,0 @@
-github.com/Ryan-ovo/go-bittorrent/bencode v0.0.0-20221220152422-90dbd36df35d h1:mNp+LX+BtUnG22O85j2c67pUgc88rxLampa3RqZhOLI=
-github.com/Ryan-ovo/go-bittorrent/bencode v0.0.0-20221220152422-90dbd36df35d/go.mod h1:QwsT32XysCIO8xxCs+MERh2v+J9TkpwrfuG8ZxkRBGE=
-github.com/Ryan-ovo/go-bittorrent/torrent v0.0.0-20221229060226-7513240dfa0c h1:zguUYN7PQKd7yVcaTvbARz3PS25Givw09kzCMwKX6O0=
-github.com/Ryan-ovo/go-bittorrent/torrent v0.0.0-20221229060226-7513240dfa0c/go.mod h1:IMR/jEhGP9fMaOUl1sLu7PZ4bHO2C/lHH3114msXmzo=
-github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
-github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
-github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
-gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=

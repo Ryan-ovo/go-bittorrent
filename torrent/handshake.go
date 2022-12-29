@@ -16,7 +16,7 @@ type HandShakeMsg struct {
 
 func NewHandShakeMsg(infoSHA [SHALEN]byte, peerID [IDLen]byte) *HandShakeMsg {
 	return &HandShakeMsg{
-		PreStr:  "BitTorrent Protocol",
+		PreStr:  "BitTorrent protocol",
 		InfoSHA: infoSHA,
 		PeerID:  peerID,
 	}
