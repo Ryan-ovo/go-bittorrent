@@ -111,7 +111,7 @@ func (c *PeerConn) WriteMsg(msg *PeerMsg) (int, error) {
 }
 
 func handshake(conn net.Conn, infoSHA [SHALEN]byte, peerId [IDLen]byte) error {
-	conn.SetDeadline(time.Now().Add(15 * time.Second))
+	conn.SetDeadline(time.Now().Add(3 * time.Second))
 	defer conn.SetDeadline(time.Time{})
 	// send HandshakeMsg
 	req := NewHandShakeMsg(infoSHA, peerId)
