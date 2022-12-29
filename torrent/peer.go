@@ -54,6 +54,7 @@ func NewPeerConn(peer PeerInfo, infoSHA [SHALEN]byte, peerID [SHALEN]byte) (*Pee
 	conn, err := net.DialTimeout("tcp", addr, 5*time.Second)
 	if err != nil {
 		log.Println("establish conn error = ", err)
+		return nil, err
 	}
 	// 建立p2p连接
 	if err = handshake(conn, infoSHA, peerID); err != nil {
